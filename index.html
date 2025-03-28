@@ -140,9 +140,12 @@
         }
 
         .menu-item img {
-            width: 100%;
-            border-radius: 12px;
-        }
+			width: 100%; /* Растягивает по ширине карточки */
+			height: 200px; /* Фиксированная высота */
+			object-fit: cover; /* Обрезает изображение, чтобы оно заполняло всю область */
+			border-radius: 12px;
+		}
+
 
         @media (max-width: 768px) {
             .menu {
@@ -223,11 +226,12 @@
     <script>
     document.addEventListener("DOMContentLoaded", () => {
         const menuItems = [
-            { name: "Суп", category: "starters", img: "https://source.unsplash.com/300x200/?soup", desc: "Горячий ароматный суп.", ingredients: "Вода, овощи, специи", time: "30 мин", price: "1200₸", weight: "350г" },
-            { name: "Шашлык", category: "main", img: "https://source.unsplash.com/300x200/?kebab", desc: "Сочный мясной шашлык.", ingredients: "Мясо, лук, специи", time: "45 мин", price: "2500₸", weight: "400г" },
-            { name: "Торт", category: "desserts", img: "https://source.unsplash.com/300x200/?cake", desc: "Сладкий и вкусный торт.", ingredients: "Мука, сахар, яйца", time: "1 час", price: "3000₸", weight: "500г" },
-            { name: "Чай", category: "drinks", img: "https://source.unsplash.com/300x200/?tea", desc: "Ароматный свежий чай.", ingredients: "Чайные листья, вода", time: "5 мин", price: "500₸", weight: "250мл" }
-        ];
+			{ name: "Суп", category: "starters", img: "images/soup.jpg", desc: "Горячий ароматный суп.", ingredients: "Вода, овощи, специи", time: "30 мин", price: "1200₸", weight: "350г" },
+			{ name: "Шашлык", category: "main", img: "images/kebab.jpg", desc: "Сочный мясной шашлык.", ingredients: "Мясо, лук, специи", time: "45 мин", price: "2500₸", weight: "400г" },
+			{ name: "Торт", category: "desserts", img: "images/cake.jpg", desc: "Сладкий и вкусный торт.", ingredients: "Мука, сахар, яйца", time: "1 час", price: "3000₸", weight: "500г" },
+			{ name: "Чай", category: "drinks", img: "images/tea.jpg", desc: "Ароматный свежий чай.", ingredients: "Чайные листья, вода", time: "5 мин", price: "500₸", weight: "250мл" }
+		];
+
 
         const menuContainer = document.getElementById("menu");
         const filterButtons = document.querySelectorAll(".filter-btn");
