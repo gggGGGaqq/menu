@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Меню ресторана</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: #1e1e2f;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            padding: 20px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0px 4px 10px rgba(255, 126, 95, 0.5);
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ffffff;
+            color: #ff7e5f;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .back-button:hover {
+            background: #e0e0e0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            background: #ff7e5f;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #e76b51;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 50%;
+            padding: 10px;
+            border: 2px solid #ff7e5f;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .menu-item {
+            background: #28293d;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            transform: scale(1.05);
+        }
+
+        .menu-item img {
+            width: 100%;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .menu {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            .filter-btn {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+        }
+		
+		.modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+		}
+
+		.modal-content {
+			background: #28293d;
+			color: white;
+			padding: 20px;
+			border-radius: 10px;
+			width: 90%;
+			max-width: 400px;
+			text-align: center;
+			box-shadow: 0 4px 10px rgba(255, 126, 95, 0.5);
+		}
+
+		.modal-content img {
+			width: 100%;
+			border-radius: 10px;
+			margin-bottom: 15px;
+		}
+
+		/* Анимация падающих блюд */
+		.falling-food {
+		position: fixed;
+		top: -50px;
+		font-size: 30px;
+		opacity: 0.5;
+		pointer-events: none;
+		z-index: -1; /* Уходит на задний план */
+		animation: fall linear infinite;
+		}
+
+        @keyframes fall {
+            0% { transform: translateY(0); opacity: 0.7; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Меню ресторана
+    </header>
+    <div class="container">
+        <div class="search-box">
+            <input type="text" id="search" placeholder="Поиск блюда...">
+        </div>
+        <div class="filters">
+            <button class="filter-btn active" data-category="all">Все</button>
+            <button class="filter-btn" data-category="starters">Закуски</button>
+            <button class="filter-btn" data-category="main">Основные блюда</button>
+            <button class="filter-btn" data-category="desserts">Десерты</button>
+            <button class="filter-btn" data-category="drinks">Напитки</button>
+        </div>
+        <div class="menu" id="menu"></div>
+    </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const menuItems = [
+            { name: "Суп", category: "starters", img: "https://source.unsplash.com/300x200/?soup", desc: "Горячий ароматный суп.", ingredients: "Вода, овощи, специи", time: "30 мин", price: "1200₸", weight: "350г" },
+            { name: "Шашлык", category: "main", img: "https://source.unsplash.com/300x200/?kebab", desc: "Сочный мясной шашлык.", ingredients: "Мясо, лук, специи", time: "45 мин", price: "2500₸", weight: "400г" },
+            { name: "Торт", category: "desserts", img: "https://source.unsplash.com/300x200/?cake", desc: "Сладкий и вкусный торт.", ingredients: "Мука, сахар, яйца", time: "1 час", price: "3000₸", weight: "500г" },
+            { name: "Чай", category: "drinks", img: "https://source.unsplash.com/300x200/?tea", desc: "Ароматный свежий чай.", ingredients: "Чайные листья, вода", time: "5 мин", price: "500₸", weight: "250мл" }
+        ];
+
+        const menuContainer = document.getElementById("menu");
+        const filterButtons = document.querySelectorAll(".filter-btn");
+        const searchInput = document.getElementById("search");
+
+        let currentCategory = "all";
+        let currentSearch = "";
+
+        function renderMenu() {
+            let filteredItems = menuItems;
+
+            if (currentCategory !== "all") {
+                filteredItems = filteredItems.filter(item => item.category === currentCategory);
+            }
+
+            if (currentSearch.trim() !== "") {
+                filteredItems = filteredItems.filter(item => 
+                    item.name.toLowerCase().includes(currentSearch.toLowerCase())
+                );
+            }
+
+            menuContainer.innerHTML = filteredItems.length ? filteredItems.map(item => `
+                <div class="menu-item" onclick="openModal('${item.name}', '${item.img}', '${item.desc}', '${item.ingredients}', '${item.time}', '${item.weight}', '${item.price}')">
+                    <img src="${item.img}" alt="${item.name}">
+                    <h3>${item.name}</h3>
+                    <p>${item.desc}</p>
+                </div>
+            `).join("") : `<p style="text-align: center; font-size: 18px;">Ничего не найдено</p>`;
+        }
+
+        filterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                filterButtons.forEach(btn => btn.classList.remove("active"));
+                button.classList.add("active");
+                currentCategory = button.dataset.category;
+                renderMenu();
+            });
+        });
+
+        searchInput.addEventListener("input", (e) => {
+            currentSearch = e.target.value;
+            renderMenu();
+        });
+
+        renderMenu();
+        createFallingFood();
+    });
+
+    function openModal(name, img, desc, ingredients, time, weight, price) {
+        const modal = document.createElement("div");
+        modal.classList.add("modal");
+        modal.innerHTML = `
+            <div class="modal-content">
+                <img src="${img}" alt="${name}">
+                <h2>${name}</h2>
+                <p>${desc}</p>
+                <p><strong>Состав:</strong> ${ingredients}</p>
+                <p><strong>Время приготовления:</strong> ${time}</p>
+                <p><strong>Вес:</strong> ${weight}</p>
+                <p><strong>Цена:</strong> ${price}</p>
+            </div>
+        `;
+
+        modal.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.body.appendChild(modal);
+    }
+
+    function closeModal() {
+        const modal = document.querySelector(".modal");
+        if (modal) {
+            modal.remove();
+        }
+    }
+
+    function createFallingFood() {
+    const foodEmojis = ["🍕", "🍔", "🍣", "🍩", "🥗", "🍗", "🥞", "🌮"];
+    setInterval(() => {
+        const food = document.createElement("div");
+        food.classList.add("falling-food");
+        food.innerText = foodEmojis[Math.floor(Math.random() * foodEmojis.length)];
+        food.style.left = `${Math.random() * 100}vw`;
+        food.style.animationDuration = `${Math.random() * 10 + 5}s`; // от 5 до 15 секунд
+        document.body.appendChild(food);
+        setTimeout(() => food.remove(), 16000); // Удаляется через 16 секунд
+		}, 1000);
+	}
+
+	</script>
+
+</body>
+</html>
