@@ -60,28 +60,46 @@
         }
 
         .filters {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+			display: flex;
+			flex-wrap: nowrap; /* Запрещаем перенос на новую строку */
+			justify-content: flex-start; /* Выравнивание в начале */
+			gap: 10px;
+			margin-bottom: 20px;
+			overflow-x: auto; /* Горизонтальный скролл */
+			padding-bottom: 10px; /* Чтобы скроллбар не обрезался */
+			scrollbar-width: thin; /* Тонкая полоса прокрутки (Firefox) */
+		}
 
-        .filter-btn {
-            background: #ff7e5f;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            cursor: pointer;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+		/* Скрываем стандартный scrollbar в WebKit (Chrome, Safari) */
+		.filters::-webkit-scrollbar {
+			height: 5px;
+		}
 
-        .filter-btn:hover, .filter-btn.active {
-            background: #e76b51;
-        }
+		/* Дизайн полосы прокрутки */
+		.filters::-webkit-scrollbar-thumb {
+			background: rgba(255, 126, 95, 0.7);
+			border-radius: 10px;
+		}
+
+		/* Кнопки фильтра */
+		.filter-btn {
+			background: #ff7e5f;
+			color: white;
+			border: none;
+			padding: 12px 20px;
+			cursor: pointer;
+			border-radius: 25px;
+			font-size: 16px;
+			font-weight: bold;
+			transition: 0.3s;
+			white-space: nowrap; /* Запрещаем перенос текста */
+			flex-shrink: 0; /* Чтобы кнопки не сжимались */
+		}
+
+		.filter-btn:hover, .filter-btn.active {
+			background: #e76b51;
+		}
+
 
         .search-box {
             display: flex;
@@ -97,7 +115,7 @@
             font-size: 16px;
         }
 
-        
+
         .menu {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -144,6 +162,8 @@
         justify-content: center;
         z-index: 1000;
 		}
+
+
 
 		.modal-content {
 			background: #28293d;
