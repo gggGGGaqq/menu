@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
+		@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap');
+
+		
         * {
             margin: 0;
             padding: 0;
@@ -56,6 +59,35 @@
         .back-button:hover {
             background: #e0e0e0;
         }
+
+
+		.restaurant-info {
+			background: #222; /* Тёмный фон */
+			color: #fff; /* Белый текст */
+			padding: 10px;
+			border-radius: 8px;
+			margin-top: 10px;
+			box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+			font-size: 14px; /* Оптимальный размер */
+			font-weight: 300; /* Тонкий шрифт */
+			font-family: 'Cormorant Garamond', serif; /* Элегантный шрифт */
+		}
+
+		.restaurant-info h2 {
+			color: gold; /* Золотой заголовок */
+			font-size: 18px;
+			margin-bottom: 5px;
+			font-weight: 400; /* Чуть толще, чем обычный текст */
+		}
+
+		.restaurant-info p {
+			margin: 3px 0;
+			font-size: 13px;
+			font-weight: 300; /* Тонкий шрифт */
+		}
+
+
+
 
         .container {
             max-width: 1200px;
@@ -208,8 +240,16 @@
 </head>
 <body>
     <header>
-        Меню ресторана
-    </header>
+		<h1>Меню ресторана</h1>
+		<div class="restaurant-info">
+			<h2>🏛 Ваше ресторан</h2>
+			<p>📍:И.Франко 2,Рудный, Костанай обл, Казахстан</p>
+			<p>📞:+7 771 631 76 36</p>
+			<p>📶 WiFi: Password123</p>
+			<p>Здесь вы можете добавить дополнительную информацию для ваших гостей, такую как налоги, цену обслуживания, часы работы ресторана, контакты, условия доставки и так далее.</p>
+		</div>
+	</header>
+
     <div class="container">
         <div class="search-box">
             <input type="text" id="search" placeholder="Поиск блюда...">
