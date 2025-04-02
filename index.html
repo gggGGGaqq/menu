@@ -229,38 +229,71 @@
 			margin-bottom: 15px;
 		}
 
-		.language-btn {
-			background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Градиентный фон */
-			color: #fff;
-			border: none;
-			padding: 12px 30px;
-			border-radius: 25px;
+		.language-switcher {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-top: 20px;
+		}
+
+		.switch {
+			position: relative;
+		}
+
+		.switch input {
+			display: none;
+		}
+
+		.switch label {
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			background-color: #000;
+			width: 120px;
+			height: 40px;
+			border-radius: 50px;
+			padding: 5px;
+			transition: background-color 0.3s ease;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+		}
+
+		.switch .lang-ru,
+		.switch .lang-kk {
+			color: white;
 			font-size: 18px;
 			font-weight: bold;
-			cursor: pointer;
-			transition: transform 0.3s ease, background-color 0.3s ease;
-			display: inline-block;
-			margin: 10px 5px;
-			box-shadow: 0 4px 10px rgba(255, 126, 95, 0.5);
+			opacity: 0;
+			transition: opacity 0.3s ease;
 		}
 
-		.language-btn:hover {
-			background-color: #e76b51; /* Немного темнее при наведении */
-			transform: scale(1.05);
+		.switch input:checked + label {
+			background-color: #e76b51; /* Цвет при переключении */
 		}
 
-		.language-btn:focus {
-			outline: none; /* Убираем фокусное кольцо */
+		.switch input:checked + label .lang-ru {
+			opacity: 0;
 		}
 
-		/* Для мобильных устройств */
+		.switch input:checked + label .lang-kk {
+			opacity: 1;
+		}
+
+		.switch input:checked + label {
+			justify-content: flex-end;
+		}
+
 		@media (max-width: 768px) {
-			.language-btn {
+			.switch label {
+				width: 100px;
+				height: 35px;
+			}
+			.switch .lang-ru,
+			.switch .lang-kk {
 				font-size: 16px;
-				padding: 10px 20px;
 			}
 		}
-		
+
 		
 		/* Анимация падающих блюд */
 		.falling-food {
@@ -288,8 +321,15 @@
 			<p>📞:+7 771 631 76 36</p>
 			<p>📶 WiFi: Password123</p>
 			<p data-lang="header3">Здесь вы можете добавить дополнительную информацию для ваших гостей, такую как налоги, цену обслуживания, часы работы ресторана, контакты, условия доставки и так далее.</p>
-		<button onclick="changeLanguage('ru')" class="language-btn">🇷🇺 Русский</button>
-		<button onclick="changeLanguage('kk')" class="language-btn">🇰🇿 Қазақша</button>
+			<div class="language-switcher">
+				<div class="switch">
+					<input type="checkbox" id="lang-toggle">
+					<label for="lang-toggle">
+						<span class="lang-ru">🇷🇺 Русский</span>
+						<span class="lang-kk">🇰🇿 Қазақша</span>
+					</label>
+				</div>
+			</div>
 		</div>
 	</header>
 
@@ -307,6 +347,14 @@
         <div class="menu" id="menu"></div>
     </div>
     <script>
+	document.getElementById("lang-toggle").addEventListener("change", function () {
+		if (this.checked) {
+			changeLanguage("kk");
+		} else {
+			changeLanguage("ru");
+		}
+	});
+
 	function changeLanguage(lang) {
 		fetch(`lang/${lang}.json`)
 			.then(response => response.json())
@@ -319,12 +367,6 @@
 				localStorage.setItem("lang", lang);
 			});
 	}
-
-	// Загружаем язык при старте
-	document.addEventListener("DOMContentLoaded", () => {
-		const savedLang = localStorage.getItem("lang") || "ru";
-		changeLanguage(savedLang);
-	});
 
 	
 	
