@@ -229,6 +229,39 @@
 			margin-bottom: 15px;
 		}
 
+		.language-btn {
+			background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Градиентный фон */
+			color: #fff;
+			border: none;
+			padding: 12px 30px;
+			border-radius: 25px;
+			font-size: 18px;
+			font-weight: bold;
+			cursor: pointer;
+			transition: transform 0.3s ease, background-color 0.3s ease;
+			display: inline-block;
+			margin: 10px 5px;
+			box-shadow: 0 4px 10px rgba(255, 126, 95, 0.5);
+		}
+
+		.language-btn:hover {
+			background-color: #e76b51; /* Немного темнее при наведении */
+			transform: scale(1.05);
+		}
+
+		.language-btn:focus {
+			outline: none; /* Убираем фокусное кольцо */
+		}
+
+		/* Для мобильных устройств */
+		@media (max-width: 768px) {
+			.language-btn {
+				font-size: 16px;
+				padding: 10px 20px;
+			}
+		}
+		
+		
 		/* Анимация падающих блюд */
 		.falling-food {
 		position: fixed;
