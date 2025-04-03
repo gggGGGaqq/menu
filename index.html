@@ -329,61 +329,86 @@
 	
 	
     document.addEventListener("DOMContentLoaded", () => {
-        const menuItems = [
-			{ name: "Суп", category: "starters", img: "images/soup.jpg", desc: "Горячий ароматный суп.", ingredients: "Вода, овощи, специи", time: "30 мин", price: "1200₸", weight: "350г" },
-			{ name: "Шашлык", category: "main", img: "images/kebab.jpg", desc: "Сочный мясной шашлык.", ingredients: "Мясо, лук, специи", time: "45 мин", price: "2500₸", weight: "400г" },
-			{ name: "Торт", category: "desserts", img: "images/cake.jpg", desc: "Сладкий и вкусный торт.", ingredients: "Мука, сахар, яйца", time: "1 час", price: "3000₸", weight: "500г" },
-			{ name: "Чай", category: "drinks", img: "images/tea.jpg", desc: "Ароматный свежий чай.", ingredients: "Чайные листья, вода", time: "5 мин", price: "500₸", weight: "250мл" }
-		];
+	    const menuItems = [
+	        { name: "Суп", category: "starters", img: "images/soup.jpg", desc: "Горячий ароматный суп.", ingredients: "Вода, овощи, специи", time: "30 мин", price: "1200₸", weight: "350г" },
+	        { name: "Шашлык", category: "main", img: "images/kebab.jpg", desc: "Сочный мясной шашлык.", ingredients: "Мясо, лук, специи", time: "45 мин", price: "2500₸", weight: "400г" },
+	        { name: "Торт", category: "desserts", img: "images/cake.jpg", desc: "Сладкий и вкусный торт.", ingredients: "Мука, сахар, яйца", time: "1 час", price: "3000₸", weight: "500г" },
+	        { name: "Чай", category: "drinks", img: "images/tea.jpg", desc: "Ароматный свежий чай.", ingredients: "Чайные листья, вода", time: "5 мин", price: "500₸", weight: "250мл" }
+	    ];
 
+	    const menuContainer = document.getElementById("menu");
+	    const filterButtons = document.querySelectorAll(".filter-btn");
+	    const searchInput = document.getElementById("search");
+	    const languageButtons = document.querySelectorAll(".language-btn");
 
-        const menuContainer = document.getElementById("menu");
-        const filterButtons = document.querySelectorAll(".filter-btn");
-        const searchInput = document.getElementById("search");
+	    let currentCategory = "all";
+	    let currentSearch = "";
+	    let currentLanguage = "ru"; // По умолчанию русский
 
-        let currentCategory = "all";
-        let currentSearch = "";
+	    function renderMenu() {
+	        let filteredItems = menuItems;
 
-        function renderMenu() {
-            let filteredItems = menuItems;
+	        if (currentCategory !== "all") {
+	            filteredItems = filteredItems.filter(item => item.category === currentCategory);
+	        }
 
-            if (currentCategory !== "all") {
-                filteredItems = filteredItems.filter(item => item.category === currentCategory);
-            }
+	        if (currentSearch.trim() !== "") {
+	            filteredItems = filteredItems.filter(item =>
+	                item.name.toLowerCase().includes(currentSearch.toLowerCase())
+	            );
+	        }
 
-            if (currentSearch.trim() !== "") {
-                filteredItems = filteredItems.filter(item => 
-                    item.name.toLowerCase().includes(currentSearch.toLowerCase())
-                );
-            }
+	        menuContainer.innerHTML = filteredItems.length ? filteredItems.map(item => `
+	            <div class="menu-item" onclick="openModal('${item.name}', '${item.img}', '${item.desc}', '${item.ingredients}', '${item.time}', '${item.weight}', '${item.price}')">
+	                <img src="${item.img}" alt="${item.name}">
+	                <h3>${item.name}</h3>
+	                <p>${item.desc}</p>
+	                <p><strong>Цена:</strong> <span style="color: gold;">${item.price}</span></p>
+	            </div>
+	        `).join("") : `<p style="text-align: center; font-size: 18px;">Ничего не найдено</p>`;
+	    }
 
-            menuContainer.innerHTML = filteredItems.length ? filteredItems.map(item => `
-                <div class="menu-item" onclick="openModal('${item.name}', '${item.img}', '${item.desc}', '${item.ingredients}', '${item.time}', '${item.weight}', '${item.price}')">
-					<img src="${item.img}" alt="${item.name}">
-					<h3>${item.name}</h3>
-					<p>${item.desc}</p>
-					<p><strong>Цена:</strong> <span style="color: gold;">${item.price}</span></p>
-				</div>
-            `).join("") : `<p style="text-align: center; font-size: 18px;">Ничего не найдено</p>`;
-        }
+	    async function changeLanguage(lang) {
+	        try {
+	            const response = await fetch(`lang/${lang}.json`);
+	            if (!response.ok) throw new Error("Ошибка загрузки перевода");
 
-        filterButtons.forEach(button => {
-            button.addEventListener("click", () => {
-                filterButtons.forEach(btn => btn.classList.remove("active"));
-                button.classList.add("active");
-                currentCategory = button.dataset.category;
-                renderMenu();
-            });
-        });
+	            const translations = await response.json();
+	            document.querySelectorAll("[data-lang]").forEach(el => {
+	                const key = el.getAttribute("data-lang");
+	                if (translations[key]) el.innerText = translations[key];
+	            });
 
-        searchInput.addEventListener("input", (e) => {
-            currentSearch = e.target.value;
-            renderMenu();
-        });
+	            currentLanguage = lang;
+	        } catch (error) {
+	            console.error("Ошибка перевода:", error);
+	        }
+	    }
 
-        renderMenu();
-        createFallingFood();
-    });
+	    filterButtons.forEach(button => {
+	        button.addEventListener("click", () => {
+	            filterButtons.forEach(btn => btn.classList.remove("active"));
+	            button.classList.add("active");
+	            currentCategory = button.dataset.category;
+	            renderMenu();
+	        });
+	    });
+
+	    searchInput.addEventListener("input", (e) => {
+	        currentSearch = e.target.value;
+	        renderMenu();
+	    });
+
+	    languageButtons.forEach(button => {
+	        button.addEventListener("click", () => {
+	            changeLanguage(button.dataset.lang);
+	        });
+	    });
+
+	    renderMenu();
+	    createFallingFood();
+	});
+
 
     function openModal(name, img, desc, ingredients, time, weight, price) {
         const modal = document.createElement("div");
