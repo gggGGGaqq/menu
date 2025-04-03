@@ -307,18 +307,25 @@
         <div class="menu" id="menu"></div>
     </div>
     <script>
-	function changeLanguage(lang) {
-		fetch(`lang/${lang}.json`)
-			.then(response => response.json())
-			.then(data => {
-				document.querySelectorAll("[data-lang]").forEach(element => {
-					const key = element.getAttribute("data-lang");
-					element.textContent = data[key];
-				});
+	async function changeLanguage(lang) {
+	    try {
+	        const response = await fetch(`lang/${lang}.json`);
+	        if (!response.ok) throw new Error("Ошибка загрузки перевода");
 
-				localStorage.setItem("lang", lang);
-			});
+	        const translations = await response.json();
+	        document.querySelectorAll("[data-lang]").forEach(el => {
+	            const key = el.getAttribute("data-lang");
+	            if (translations[key]) {
+	                el.innerText = translations[key];
+	            }
+	        });
+
+	        localStorage.setItem("lang", lang); // Сохраняем выбор языка в localStorage
+	    } catch (error) {
+	        console.error("Ошибка перевода:", error);
+	    }
 	}
+
 
 	// Загружаем язык при старте
 	document.addEventListener("DOMContentLoaded", () => {
@@ -361,11 +368,11 @@
 	        menuContainer.innerHTML = filteredItems.length ? filteredItems.map(item => `
 	            <div class="menu-item" onclick="openModal('${item.name}', '${item.img}', '${item.desc}', '${item.ingredients}', '${item.time}', '${item.weight}', '${item.price}')">
 	                <img src="${item.img}" alt="${item.name}">
-	                <h3>${item.name}</h3>
-	                <p>${item.desc}</p>
-	                <p><strong>Цена:</strong> <span style="color: gold;">${item.price}</span></p>
+	                <h3 data-lang="${item.name}">${item.name}</h3>
+	                <p data-lang="${item.desc}">${item.desc}</p>
+	                <p><strong data-lang="price_label">Цена:</strong> <span style="color: gold;" data-lang="${item.price}">${item.price}</span></p>
 	            </div>
-	        `).join("") : `<p style="text-align: center; font-size: 18px;">Ничего не найдено</p>`;
+	        `).join("") : `<p style="text-align: center; font-size: 18px;" data-lang="no_results">Ничего не найдено</p>`;
 	    }
 
 	    async function changeLanguage(lang) {
@@ -376,7 +383,9 @@
 	            const translations = await response.json();
 	            document.querySelectorAll("[data-lang]").forEach(el => {
 	                const key = el.getAttribute("data-lang");
-	                if (translations[key]) el.innerText = translations[key];
+	                if (translations[key]) {
+	                    el.innerText = translations[key];
+	                }
 	            });
 
 	            currentLanguage = lang;
@@ -408,6 +417,7 @@
 	    renderMenu();
 	    createFallingFood();
 	});
+
 
 
     function openModal(name, img, desc, ingredients, time, weight, price) {
