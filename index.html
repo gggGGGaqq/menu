@@ -324,10 +324,31 @@
             menuContainer.innerHTML = filteredItems.length ? filteredItems.map(item => { const addToCartText = translations['add_to_cart'] || "В корзину"; const priceLabel = translations['price'] || 'Цена'; return ` <div class="menu-item" data-id="${item.id}"> <div> <img src="${item.img}" alt="${item.name}" > <h3>${item.name}</h3> <p>${item.desc || ''}</p> <p class="price"><strong>${priceLabel}:</strong> ${item.price}</p> </div> <button class="add-to-cart-btn" data-id="${item.id}">${addToCartText}</button> </div> `;}).join("") : `<p style="text-align: center; grid-column: 1 / -1; font-size: 18px;">${translations['not_found'] || 'Ничего не найдено'}</p>`;
         }
 
-        function handleMenuClick(event) {
-            const target = event.target; const menuItem = target.closest('.menu-item'); if (!menuItem) return; const id = parseInt(menuItem.dataset.id); if (!id) return;
-            if (target.classList.contains('add-to-cart-btn')) { const item = menuItems.find(mItem => mItem.id === id); if (item) { addToCart(item); target.style.transform = 'scale(0.95)'; setTimeout(() => target.style.transform = 'scale(1)', 150); } }
-            else if (target.tagName === 'IMG' || target.tagName === 'H3') { openDetailsModal(id); }
+       function handleMenuClick(event) {
+            const target = event.target;
+            const menuItem = target.closest('.menu-item');
+
+            if (!menuItem) return; // Клик вне элемента меню
+            const id = parseInt(menuItem.dataset.id);
+            if (!id) return; // Не удалось получить ID
+
+            // Клик по кнопке "В корзину"
+            if (target.classList.contains('add-to-cart-btn')) {
+                 const item = menuItems.find(mItem => mItem.id === id);
+                 if (item) {
+                     addToCart(item);
+                     // Простая анимация для обратной связи
+                     target.style.transform = 'scale(0.95)'; // <-- Кратковременное уменьшение
+                     // Возвращаем стиль кнопки к исходному состоянию (убираем инлайн-стиль)
+                     setTimeout(() => {
+                         target.style.transform = ''; // <--- ИЗМЕНЕНИЕ ЗДЕСЬ
+                     }, 150);
+                 }
+            }
+            // Клик по картинке или заголовку для открытия деталей
+            else if (target.tagName === 'IMG' || target.tagName === 'H3') {
+                 openDetailsModal(id);
+            }
         }
 
         function openDetailsModal(id) {
