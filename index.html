@@ -10,34 +10,11 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
+        body { background: #1e1e2f; color: #ffffff; overflow-x: hidden; padding-bottom: 80px; }
 
-        body {
-            background: #1e1e2f;
-            color: #ffffff;
-            overflow-x: hidden;
-            padding-bottom: 80px; /* Добавляем отступ снизу, чтобы контент не перекрывался кнопкой корзины */
-        }
-
-        header {
-            background: linear-gradient(135deg, #ff7e5f, #feb47b);
-            padding: 20px;
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            text-transform: uppercase;
-            box-shadow: 0px 4px 10px rgba(255, 126, 95, 0.5);
-            position: relative;
-        }
+        header { background: linear-gradient(135deg, #ff7e5f, #feb47b); padding: 20px; text-align: center; font-size: 22px; font-weight: bold; text-transform: uppercase; box-shadow: 0px 4px 10px rgba(255, 126, 95, 0.5); position: relative; }
+        header h1 { margin-bottom: 15px; }
 
 		/* Блок поиска */
 		.search-box { display: flex; justify-content: center; margin-bottom: 30px; }
@@ -50,13 +27,70 @@
 		.filter-btn:hover, .filter-btn.active { background: #e76b51; }
 
 		/* Кнопки смены языка */
-		.language-btn { background: linear-gradient(135deg, #ffffff, #f0f0f0); color: #ff7e5f; border: 1px solid #ff7e5f; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: bold; cursor: pointer; transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; display: inline-block; margin: 10px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+		.language-btn { background: linear-gradient(135deg, #ffffff, #f0f0f0); color: #ff7e5f; border: 1px solid #ff7e5f; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: bold; cursor: pointer; transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; display: inline-block; margin: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 		.language-btn:hover { background: linear-gradient(135deg, #f0f0f0, #e0e0e0); box-shadow: 0 4px 8px rgba(0,0,0,0.15); transform: scale(1.05); }
 		.language-btn:focus { outline: none; }
+
+        /* Стили для информационного блока .inforr */
+        .inforr {
+            background: #222; /* Тёмный фон */
+            color: #fff; /* Белый текст */
+            padding: 15px; /* Увеличен паддинг */
+            border-radius: 8px;
+            margin-top: 15px; /* Отступ от H1 */
+            margin-bottom: 10px; /* Отступ до блока с кнопками языков */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 600px; /* Ограничиваем ширину */
+            margin-left: auto;  /* Центрируем блок */
+            margin-right: auto;
+            text-align: center; /* Текст внутри блока по центру */
+        }
+        .inforr h2 {
+            font-size: 1.1em;
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-weight: 500;
+            font-family: 'Montserrat', sans-serif; /* Возвращаем основной шрифт */
+        }
+        .inforr p {
+            font-size: 0.9em;
+            line-height: 1.5;
+            color: #f0f0f0;
+            margin-bottom: 8px;
+            font-family: 'Montserrat', sans-serif; /* Возвращаем основной шрифт */
+            font-weight: 400; /* Обычный вес */
+        }
+        .inforr p[data-lang="header3"] {
+             margin-bottom: 0; /* Убираем отступ у последнего параграфа */
+        }
+        /* Убираем синий цвет и подчеркивание у ссылок (включая телефон) в блоке .inforr */
+        .inforr a {
+            color: inherit; /* Наследовать цвет от родительского <p> */
+            text-decoration: none; /* Убрать подчеркивание */
+        }
+        .inforr a:hover {
+            text-decoration: none; /* Убедимся, что не появляется при наведении */
+        }
+
+        /* Стили для блока .restaurant-info (теперь содержит только кнопки) */
+        .restaurant-info {
+            /* margin-top: 15px; - убрано, отступ задан у .inforr */
+            padding: 0; /* Убираем паддинг, если не нужен */
+            /* background: rgba(0, 0, 0, 0.1); - убран фон */
+            border-radius: 8px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        /* Стили для h2 и p внутри .restaurant-info удалены, так как их там больше нет */
 
 		@media (max-width: 768px) {
 			.language-btn { font-size: 12px; padding: 8px 15px; }
 			 .filter-btn { font-size: 14px; padding: 10px 15px; }
+             .inforr { padding: 10px; } /* Уменьшим паддинг на мобильных */
+             .inforr h2 { font-size: 1em; }
+             .inforr p { font-size: 0.85em; }
 		}
 
 		/* Стили для горизонтального скролла фильтров */
@@ -68,65 +102,42 @@
 
         /* --- Позиция и стиль кнопки Корзины (перемещенной) --- */
         .cart-button {
-            /* Убраны стили для позиционирования в шапке */
-            position: fixed; /* Фиксируем относительно окна */
-            bottom: 30px;    /* Отступ снизу */
-            right: 30px;     /* Отступ справа */
-            z-index: 1001;   /* Выше остального контента */
-
-
-		/* Убираем синий цвет и подчеркивание у ссылок (включая телефон) в блоке информации */
-	.inforr a {
-	    color: inherit; /* Номер будет наследовать цвет текста родительского <p> (белый/светло-серый) */
-	    text-decoration: none; /* Убираем подчеркивание */
-	}
-	
-		
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1001;
             background: #ffffff;
             color: #ff7e5f;
             border: none;
-            padding: 12px 20px; /* Немного увеличены отступы */
-            border-radius: 25px; /* Скругление */
+            padding: 12px 20px;
+            border-radius: 25px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавные переходы */
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* Тень */
-            display: flex; /* Для выравнивания иконки/текста и счетчика */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
             align-items: center;
             justify-content: center;
         }
         .cart-button:hover {
-            background: #f0f0f0; /* Слегка серая при наведении */
-            transform: scale(1.05); /* Увеличение при наведении */
-            box-shadow: 0 6px 15px rgba(0,0,0,0.35); /* Усиленная тень */
+            background: #f0f0f0;
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.35);
         }
         #cart-count {
             background-color: red;
             color: white;
             border-radius: 50%;
-            padding: 3px 7px; /* Размер счетчика */
+            padding: 3px 7px;
             font-size: 12px;
-            margin-left: 8px; /* Отступ от текста "Корзина" */
-            line-height: 1; /* Убираем лишнюю высоту */
-            /* vertical-align: top; - больше не нужен */
-            display: inline-block; /* Чтобы не схлопывался при 0 */
+            margin-left: 8px;
+            line-height: 1;
+            display: inline-block;
         }
 
         .container { max-width: 1200px; margin: auto; padding: 20px; }
 
-	.inforr {
-		background: #222; /* Тёмный фон */
-			color: #fff; /* Белый текст */
-			padding: 10px;
-			border-radius: 8px;
-			margin-top: 10px;
-			box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-			font-size: 14px; /* Оптимальный размер */
-			font-weight: 300; /* Тонкий шрифт */
-			font-family: 'Cormorant Garamond', serif; /* Элегантный шрифт */
-	}
-	    
         /* Меню */
         .menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .menu-item { background: #28293d; padding: 15px; border-radius: 12px; text-align: center; transition: transform 0.3s ease-in-out; display: flex; flex-direction: column; justify-content: space-between; }
@@ -136,24 +147,9 @@
          .menu-item p { margin-bottom: 10px; flex-grow: 1; }
          .menu-item .price { font-weight: bold; color: gold; margin-bottom: 15px; }
 
-        /* --- ИЗМЕНЕННЫЙ Стиль кнопки "В корзину" (оранжевый) --- */
-        .add-to-cart-btn {
-            background: #ff7e5f; /* Оранжевый фон */
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            transition: background-color 0.3s; /* Плавный переход фона */
-            width: 100%;
-            margin-top: auto;
-        }
-        .add-to-cart-btn:hover {
-            background: #e76b51; /* Темнее при наведении */
-            /* transform: scale(1.02); - убран для консистентности */
-        }
+        /* Стиль кнопки "В корзину" (оранжевый) */
+        .add-to-cart-btn { background: #ff7e5f; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: bold; transition: background-color 0.3s; width: 100%; margin-top: auto; }
+        .add-to-cart-btn:hover { background: #e76b51; }
 
         /* Модальное окно (общее) */
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
@@ -192,20 +188,8 @@
         .cart-actions { text-align: right; margin-top: 20px; }
 
         /* Стиль кнопки Закрыть в корзине */
-        .close-cart-action-btn {
-            background: #6c757d;
-			color: white;
-			border: none;
-			padding: 12px 20px;
-			cursor: pointer;
-			border-radius: 25px;
-			font-size: 16px;
-			font-weight: bold;
-			transition: background-color 0.3s;
-        }
-        .close-cart-action-btn:hover {
-             background: #5a6268;
-        }
+        .close-cart-action-btn { background: #6c757d; color: white; border: none; padding: 12px 20px; cursor: pointer; border-radius: 25px; font-size: 16px; font-weight: bold; transition: background-color 0.3s; }
+        .close-cart-action-btn:hover { background: #5a6268; }
 
         /* Анимация падающих блюд (если используется) */
 		/* .falling-food { ... } */
@@ -216,16 +200,15 @@
 <body>
     <header>
         <h1 data-lang="header">Меню ресторана</h1>
-	<div class="inforr">
-		<h2 data-lang="header2">🏛 Ваше ресторан</h2>
-			<p>📍:И.Франко 2,Рудный, Костанай обл, Казахстан</p>
-			<p>📞:+7 771 631 76 36</p>
-			<p>📶 WiFi: Password123</p>
-			<p data-lang="header3">Здесь вы можете добавить дополнительную информацию для ваших гостей, такую как налоги, цену обслуживания, часы работы ресторана, контакты, условия доставки и так далее.</p>
-	</div>
+        <div class="inforr">
+            <h2 data-lang="header2">🏛 Ваше ресторан</h2>
+            <p>📍:И.Франко 2,Рудный, Костанай обл, Казахстан</p>
+            <p>📞:+7 771 631 76 36</p> <p>📶 WiFi: Password123</p>
+            <p data-lang="header3">Здесь вы можете добавить дополнительную информацию для ваших гостей, такую как налоги, цену обслуживания, часы работы ресторана, контакты, условия доставки и так далее.</p>
+        </div>
         <div class="restaurant-info">
-        	<button onclick="changeLanguage('ru')" class="language-btn">🇷🇺 Русский</button>
-        	<button onclick="changeLanguage('kk')" class="language-btn">🇰🇿 Қазақша</button>
+            <button onclick="changeLanguage('ru')" class="language-btn">🇷🇺 Русский</button>
+            <button onclick="changeLanguage('kk')" class="language-btn">🇰🇿 Қазақша</button>
         </div>
     </header>
 
@@ -278,11 +261,11 @@
             { id: 4, name: "Чай", category: "drinks", img: "images/tea.jpg", desc: "Ароматный свежий чай.", ingredients: "Чайные листья, вода", time: "5 мин", price: "500₸", weight: "250мл" }
         ];
 
+        // Получение DOM-элементов
         const menuContainer = document.getElementById("menu");
-        // Используется ИСПРАВЛЕННЫЙ селектор
-        const specificFilterButtons = document.querySelectorAll(".filters .filter-btn");
+        const specificFilterButtons = document.querySelectorAll(".filters .filter-btn"); // Исправленный селектор
         const searchInput = document.getElementById("search");
-        const cartButton = document.getElementById("cart-button");
+        const cartButton = document.getElementById("cart-button"); // Кнопка корзины (теперь внизу)
         // const cartCountSpan = document.getElementById("cart-count"); // Находится внутри cartButton
         const cartItemsContainer = document.getElementById("cart-items");
         const cartTotalSpan = document.getElementById("cart-total");
@@ -290,29 +273,43 @@
         const detailsModalContent = document.getElementById("details-modal-content");
         const cartModal = document.getElementById("cart-modal");
 
+        // Состояние
         let currentCategory = "all";
         let currentSearch = "";
         let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
         let translations = {};
 
         // --- Функции ---
-
         function parsePrice(priceString) { return parseInt(String(priceString).replace(/[^0-9]/g, ''), 10) || 0; }
         function formatPrice(priceNumber) { return `${priceNumber}₸`; }
 
         function changeLanguage(lang) {
+            // Проверка наличия fetch перед использованием
+             if (typeof fetch !== 'function') {
+                console.error("Fetch API is not supported in this browser or environment.");
+                // Возможно, стоит показать сообщение пользователю
+                alert("Не удалось загрузить данные: функция fetch не поддерживается.");
+                return; // Прекращаем выполнение функции
+            }
+
             fetch(`lang/${lang}.json`)
-                .then(response => { if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`); return response.json(); })
+                .then(response => {
+                     if (!response.ok) {
+                         // Логгируем статус и текст ошибки для диагностики
+                         console.error(`HTTP error! status: ${response.status}, statusText: ${response.statusText}`);
+                         throw new Error(`HTTP error! status: ${response.status}`);
+                     }
+                     return response.json();
+                 })
                 .then(data => {
                     translations = data;
                     document.querySelectorAll("[data-lang]").forEach(element => {
                         const key = element.getAttribute("data-lang");
                         if (data[key]) {
                             if (element.tagName === 'INPUT' && element.placeholder) { element.placeholder = data[key]; }
-                            // Обновляем текст кнопки корзины (которая теперь внизу)
                             else if (cartButton && cartButton.contains(element) && element.dataset.lang === 'cart_btn') {
                                 const cartText = data[key] || 'Корзина';
-                                const textSpan = element.closest('#cart-button').querySelector('span[data-lang="cart_btn"]');
+                                const textSpan = element.closest('#cart-button')?.querySelector('span[data-lang="cart_btn"]'); // Добавлена ?. проверка
                                 if(textSpan) textSpan.textContent = cartText;
                             } else { element.textContent = data[key]; }
                         }
@@ -322,74 +319,65 @@
                     updateCartCount();
                     localStorage.setItem("lang", lang);
                 })
-                .catch(error => { console.error("Could not load language file:", error); if (lang !== 'ru') changeLanguage('ru'); });
+                .catch(error => {
+                     console.error("Could not load or parse language file:", error);
+                     // Показываем сообщение пользователю об ошибке загрузки языка
+                     // alert(`Ошибка загрузки языкового файла (${lang}.json). Попробуйте перезагрузить страницу.`);
+                     // Пытаемся загрузить язык по умолчанию, если это не он вызвал ошибку
+                     if (lang !== 'ru') {
+                         console.warn("Attempting to load default language 'ru'.");
+                         changeLanguage('ru');
+                     } else {
+                         // Если и русский не загрузился, возможно, проблема глубже
+                         console.error("Failed to load default language 'ru' as well.");
+                     }
+                 });
          }
 
-        function renderMenu() {
+
+        function renderMenu() { /* ... как в предыдущем коде ... */
             let filteredItems = menuItems;
             if (currentCategory !== "all") { filteredItems = filteredItems.filter(item => item.category === currentCategory); }
             if (currentSearch.trim() !== "") { const searchTerm = currentSearch.toLowerCase(); filteredItems = filteredItems.filter(item => (item.name && item.name.toLowerCase().includes(searchTerm)) || (item.desc && item.desc.toLowerCase().includes(searchTerm))); }
-            menuContainer.innerHTML = filteredItems.length ? filteredItems.map(item => { const addToCartText = translations['add_to_cart'] || "В корзину"; const priceLabel = translations['price'] || 'Цена'; return ` <div class="menu-item" data-id="${item.id}"> <div> <img src="${item.img}" alt="${item.name}" > <h3>${item.name}</h3> <p>${item.desc || ''}</p> <p class="price"><strong>${priceLabel}:</strong> ${item.price}</p> </div> <button class="add-to-cart-btn" data-id="${item.id}">${addToCartText}</button> </div> `;}).join("") : `<p style="text-align: center; grid-column: 1 / -1; font-size: 18px;">${translations['not_found'] || 'Ничего не найдено'}</p>`;
+            menuContainer.innerHTML = filteredItems.length ? filteredItems.map(item => { const addToCartText = translations['add_to_cart'] || "В корзину"; const priceLabel = translations['price'] || 'Цена'; return ` <div class="menu-item" data-id="<span class="math-inline">\{item\.id\}"\> <div\> <img src\="</span>{item.img}" alt="<span class="math-inline">\{item\.name\}" \> <h3\></span>{item.name}</h3> <p><span class="math-inline">\{item\.desc \|\| ''\}</p\> <p class\="price"\><strong\></span>{priceLabel}:</strong> <span class="math-inline">\{item\.price\}</p\> </div\> <button class\="add\-to\-cart\-btn" data\-id\="</span>{item.id}">${addToCartText}</button> </div> `;}).join("") : `<p style="text-align: center; grid-column: 1 / -1; font-size: 18px;">${translations['not_found'] || 'Ничего не найдено'}</p>`;
         }
 
-       function handleMenuClick(event) {
-            const target = event.target;
-            const menuItem = target.closest('.menu-item');
-
-            if (!menuItem) return; // Клик вне элемента меню
-            const id = parseInt(menuItem.dataset.id);
-            if (!id) return; // Не удалось получить ID
-
-            // Клик по кнопке "В корзину"
-            if (target.classList.contains('add-to-cart-btn')) {
-                 const item = menuItems.find(mItem => mItem.id === id);
-                 if (item) {
-                     addToCart(item);
-                     // Простая анимация для обратной связи
-                     target.style.transform = 'scale(0.95)'; // <-- Кратковременное уменьшение
-                     // Возвращаем стиль кнопки к исходному состоянию (убираем инлайн-стиль)
-                     setTimeout(() => {
-                         target.style.transform = ''; // <--- ИЗМЕНЕНИЕ ЗДЕСЬ
-                     }, 150);
-                 }
-            }
-            // Клик по картинке или заголовку для открытия деталей
-            else if (target.tagName === 'IMG' || target.tagName === 'H3') {
-                 openDetailsModal(id);
-            }
+        function handleMenuClick(event) { /* ... как в предыдущем коде ... */
+            const target = event.target; const menuItem = target.closest('.menu-item'); if (!menuItem) return; const id = parseInt(menuItem.dataset.id); if (!id) return;
+            if (target.classList.contains('add-to-cart-btn')) { const item = menuItems.find(mItem => mItem.id === id); if (item) { addToCart(item); target.style.transform = 'scale(0.95)'; setTimeout(() => { target.style.transform = ''; }, 150); } } // Используем '' для сброса
+            else if (target.tagName === 'IMG' || target.tagName === 'H3') { openDetailsModal(id); }
         }
 
-        function openDetailsModal(id) {
+        function openDetailsModal(id) { /* ... как в предыдущем коде ... */
              const item = menuItems.find(item => item.id === id); if (!item) return;
              const ingredientsLabel = translations['ingredients'] || 'Состав'; const timeLabel = translations['time'] || 'Время приготовления'; const weightLabel = translations['weight'] || 'Вес'; const priceLabel = translations['price'] || 'Цена';
              detailsModalContent.innerHTML = ''; const closeBtn = document.createElement('button'); closeBtn.className = 'close-modal-btn'; closeBtn.textContent = '×'; closeBtn.onclick = () => closeModal('details-modal'); detailsModalContent.appendChild(closeBtn); const img = document.createElement('img'); img.src = item.img; img.alt = item.name; detailsModalContent.appendChild(img); const h2 = document.createElement('h2'); h2.textContent = item.name; detailsModalContent.appendChild(h2); const descP = document.createElement('p'); descP.textContent = item.desc || ''; detailsModalContent.appendChild(descP); const ingredientsP = document.createElement('p'); ingredientsP.innerHTML = `<strong>${ingredientsLabel}:</strong> `; ingredientsP.appendChild(document.createTextNode(item.ingredients || 'не указан')); detailsModalContent.appendChild(ingredientsP); const timeP = document.createElement('p'); timeP.innerHTML = `<strong>${timeLabel}:</strong> `; timeP.appendChild(document.createTextNode(item.time || 'не указано')); detailsModalContent.appendChild(timeP); const weightP = document.createElement('p'); weightP.innerHTML = `<strong>${weightLabel}:</strong> `; weightP.appendChild(document.createTextNode(item.weight || 'не указан')); detailsModalContent.appendChild(weightP); const priceP = document.createElement('p'); priceP.innerHTML = `<strong>${priceLabel}:</strong> `; priceP.appendChild(document.createTextNode(item.price || 'не указана')); detailsModalContent.appendChild(priceP);
              detailsModal.classList.add('show');
         }
 
-        function closeModal(modalId) { const modal = document.getElementById(modalId); if (modal) { modal.classList.remove('show'); } }
-        window.addEventListener('click', (event) => { if (event.target.classList.contains('modal')) { closeModal(event.target.id); } });
+        function closeModal(modalId) { /* ... как в предыдущем коде ... */ const modal = document.getElementById(modalId); if (modal) { modal.classList.remove('show'); } }
+        window.addEventListener('click', (event) => { /* ... как в предыдущем коде ... */ if (event.target.classList.contains('modal')) { closeModal(event.target.id); } });
 
         // --- Функциональность корзины ---
-        function addToCart(item) { if (!item || typeof item.price === 'undefined') { console.error("Attempted to add invalid item to cart:", item); return; } const existingItem = cart.find(cartItem => cartItem.id === item.id); const itemPrice = parsePrice(item.price); if (existingItem) { existingItem.quantity++; } else { cart.push({ id: item.id, name: item.name, price: itemPrice, img: item.img, quantity: 1 }); } saveCart(); updateCartUI(); }
-        function changeQuantity(id, change) { const itemIndex = cart.findIndex(cartItem => cartItem.id === id); if (itemIndex > -1) { cart[itemIndex].quantity += change; if (cart[itemIndex].quantity <= 0) { cart.splice(itemIndex, 1); } saveCart(); updateCartUI(); } }
-        function removeFromCart(id) { cart = cart.filter(cartItem => cartItem.id !== id); saveCart(); updateCartUI(); }
-        function handleCartClick(event) { const target = event.target; const action = target.dataset.action; const id = parseInt(target.dataset.id); if (!action || !id) return; switch (action) { case 'increase': changeQuantity(id, 1); break; case 'decrease': changeQuantity(id, -1); break; case 'remove': removeFromCart(id); break; } }
-        function calculateTotal() { return cart.reduce((total, item) => total + (item.price * item.quantity), 0); }
-        function saveCart() { try { localStorage.setItem('shoppingCart', JSON.stringify(cart)); } catch (e) { console.error("Error saving cart to localStorage:", e); } }
-        function updateCartUI() { renderCart(); updateCartCount(); }
+        function addToCart(item) { /* ... как в предыдущем коде ... */ if (!item || typeof item.price === 'undefined') { console.error("Attempted to add invalid item to cart:", item); return; } const existingItem = cart.find(cartItem => cartItem.id === item.id); const itemPrice = parsePrice(item.price); if (existingItem) { existingItem.quantity++; } else { cart.push({ id: item.id, name: item.name, price: itemPrice, img: item.img, quantity: 1 }); } saveCart(); updateCartUI(); }
+        function changeQuantity(id, change) { /* ... как в предыдущем коде ... */ const itemIndex = cart.findIndex(cartItem => cartItem.id === id); if (itemIndex > -1) { cart[itemIndex].quantity += change; if (cart[itemIndex].quantity <= 0) { cart.splice(itemIndex, 1); } saveCart(); updateCartUI(); } }
+        function removeFromCart(id) { /* ... как в предыдущем коде ... */ cart = cart.filter(cartItem => cartItem.id !== id); saveCart(); updateCartUI(); }
+        function handleCartClick(event) { /* ... как в предыдущем коде ... */ const target = event.target; const action = target.dataset.action; const id = parseInt(target.dataset.id); if (!action || !id) return; switch (action) { case 'increase': changeQuantity(id, 1); break; case 'decrease': changeQuantity(id, -1); break; case 'remove': removeFromCart(id); break; } }
+        function calculateTotal() { /* ... как в предыдущем коде ... */ return cart.reduce((total, item) => total + (item.price * item.quantity), 0); }
+        function saveCart() { /* ... как в предыдущем коде ... */ try { localStorage.setItem('shoppingCart', JSON.stringify(cart)); } catch (e) { console.error("Error saving cart to localStorage:", e); } }
+        function updateCartUI() { /* ... как в предыдущем коде ... */ renderCart(); updateCartCount(); }
 
-        function updateCartCount() {
+        function updateCartCount() { /* ... как в предыдущем коде ... */
              const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-             // Находим span счетчика внутри основной кнопки корзины
              const countElement = cartButton ? cartButton.querySelector('#cart-count') : null;
              if (countElement) { countElement.textContent = totalItems; }
          }
 
-        function renderCart() {
-            if (!cartItemsContainer) return; if (cart.length === 0) { cartItemsContainer.innerHTML = `<p style="text-align:center; padding: 20px 0;">${translations['cart_empty'] || 'Корзина пуста'}</p>`; } else { const removeText = translations['cart_remove'] || 'Удалить'; cartItemsContainer.innerHTML = cart.map(item => { if (!item || typeof item.price === 'undefined') return ''; const totalPriceForItem = item.price * item.quantity; return ` <div class="cart-item"> <img src="${item.img}" alt="${item.name || 'Товар'}"> <div class="cart-item-info"> <h4>${item.name || 'Без имени'}</h4> <p>${formatPrice(item.price)} x ${item.quantity} = ${formatPrice(totalPriceForItem)}</p> </div> <div class="cart-quantity"> <button data-id="${item.id}" data-action="decrease">-</button> <span>${item.quantity}</span> <button data-id="${item.id}" data-action="increase">+</button> </div> <button class="cart-remove-btn" data-id="${item.id}" data-action="remove">${removeText}</button> </div> `;}).join(''); } cartTotalSpan.textContent = formatPrice(calculateTotal());
+        function renderCart() { /* ... как в предыдущем коде ... */
+            if (!cartItemsContainer) return; if (cart.length === 0) { cartItemsContainer.innerHTML = `<p style="text-align:center; padding: 20px 0;">${translations['cart_empty'] || 'Корзина пуста'}</p>`; } else { const removeText = translations['cart_remove'] || 'Удалить'; cartItemsContainer.innerHTML = cart.map(item => { if (!item || typeof item.price === 'undefined') return ''; const totalPriceForItem = item.price * item.quantity; return ` <div class="cart-item"> <img src="<span class="math-inline">\{item\.img\}" alt\="</span>{item.name || 'Товар'}"> <div class="cart-item-info"> <h4><span class="math-inline">\{item\.name \|\| 'Без имени'\}</h4\> <p\></span>{formatPrice(item.price)} x ${item.quantity} = <span class="math-inline">\{formatPrice\(totalPriceForItem\)\}</p\> </div\> <div class\="cart\-quantity"\> <button data\-id\="</span>{item.id}" data-action="decrease">-</button> <span><span class="math-inline">\{item\.quantity\}</span\> <button data\-id\="</span>{item.id}" data-action="increase">+</button> </div> <button class="cart-remove-btn" data-id="<span class="math-inline">\{item\.id\}" data\-action\="remove"\></span>{removeText}</button> </div> `;}).join(''); } cartTotalSpan.textContent = formatPrice(calculateTotal());
         }
 
-        function openCartModal() { renderCart(); cartModal.classList.add('show'); }
+        function openCartModal() { /* ... как в предыдущем коде ... */ renderCart(); cartModal.classList.add('show'); }
 
         // --- Анимация падающих блюд (если нужна) ---
         /* function createFallingFood() { ... } */
