@@ -107,6 +107,18 @@
 
         .container { max-width: 1200px; margin: auto; padding: 20px; }
 
+	.inforr {
+		background: #222; /* Тёмный фон */
+			color: #fff; /* Белый текст */
+			padding: 10px;
+			border-radius: 8px;
+			margin-top: 10px;
+			box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+			font-size: 14px; /* Оптимальный размер */
+			font-weight: 300; /* Тонкий шрифт */
+			font-family: 'Cormorant Garamond', serif; /* Элегантный шрифт */
+	}
+	    
         /* Меню */
         .menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .menu-item { background: #28293d; padding: 15px; border-radius: 12px; text-align: center; transition: transform 0.3s ease-in-out; display: flex; flex-direction: column; justify-content: space-between; }
@@ -196,9 +208,16 @@
 <body>
     <header>
         <h1 data-lang="header">Меню ресторана</h1>
+	<div class="inforr">
+		<h2 data-lang="header2">🏛 Ваше ресторан</h2>
+			<p>📍:И.Франко 2,Рудный, Костанай обл, Казахстан</p>
+			<p>📞:+7 771 631 76 36</p>
+			<p>📶 WiFi: Password123</p>
+			<p data-lang="header3">Здесь вы можете добавить дополнительную информацию для ваших гостей, такую как налоги, цену обслуживания, часы работы ресторана, контакты, условия доставки и так далее.</p>
+	</div>
         <div class="restaurant-info">
-             <button onclick="changeLanguage('ru')" class="language-btn">🇷🇺 Русский</button>
-             <button onclick="changeLanguage('kk')" class="language-btn">🇰🇿 Қазақша</button>
+        	<button onclick="changeLanguage('ru')" class="language-btn">🇷🇺 Русский</button>
+        	<button onclick="changeLanguage('kk')" class="language-btn">🇰🇿 Қазақша</button>
         </div>
     </header>
 
