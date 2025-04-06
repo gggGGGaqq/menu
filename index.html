@@ -267,13 +267,41 @@
     <script>
         // --- Глобальные переменные и данные ---
         // ИСПОЛЬЗУЕМ КЛЮЧИ ДЛЯ ПЕРЕВОДИМЫХ ПОЛЕЙ
-        const menuItems = [
-            { id: 1, name: "item_1_name", category: "starters", img: "images/soup.jpg", desc: "item_1_desc", ingredients: "item_1_ingredients", time: "item_1_time", price: "1200₸", weight: "item_1_weight" },
-            { id: 2, name: "item_2_name", category: "main", img: "images/kebab.jpg", desc: "item_2_desc", ingredients: "item_2_ingredients", time: "item_2_time", price: "2500₸", weight: "item_2_weight" },
-            { id: 3, name: "item_3_name", category: "desserts", img: "images/cake.jpg", desc: "item_3_desc", ingredients: "item_3_ingredients", time: "item_3_time", price: "3000₸", weight: "item_3_weight" },
-            { id: 4, name: "item_4_name", category: "drinks", img: "images/tea.jpg", desc: "item_4_desc", ingredients: "item_4_ingredients", time: "item_4_time", price: "500₸", weight: "item_4_weight" }
-            // ... добавьте остальные блюда с ключами ...
-        ];
+        // --- Глобальные переменные и данные ---
+// ИСПОЛЬЗУЕМ КЛЮЧИ ДЛЯ ПЕРЕВОДИМЫХ ПОЛЕЙ
+    const menuItems = [
+        // Закуски (starters)
+        { id: 1, name: "item_1_name", category: "starters", img: "images/soup.jpg", desc: "item_1_desc", ingredients: "item_1_ingredients", time: "item_1_time", price: "1200₸", weight: "item_1_weight" },
+        { id: 5, name: "item_5_name", category: "starters", img: "images/caesar_salad.jpg", desc: "item_5_desc", ingredients: "item_5_ingredients", time: "item_5_time", price: "1800₸", weight: "item_5_weight" },
+        { id: 6, name: "item_6_name", category: "starters", img: "images/greek_salad.jpg", desc: "item_6_desc", ingredients: "item_6_ingredients", time: "item_6_time", price: "1600₸", weight: "item_6_weight" },
+        { id: 7, name: "item_7_name", category: "starters", img: "images/julienne.jpg", desc: "item_7_desc", ingredients: "item_7_ingredients", time: "item_7_time", price: "1500₸", weight: "item_7_weight" },
+        { id: 8, name: "item_8_name", category: "starters", img: "images/baursaki.jpg", desc: "item_8_desc", ingredients: "item_8_ingredients", time: "item_8_time", price: "900₸", weight: "item_8_weight" },
+    
+        // Основные блюда (main)
+        { id: 2, name: "item_2_name", category: "main", img: "images/kebab.jpg", desc: "item_2_desc", ingredients: "item_2_ingredients", time: "item_2_time", price: "2500₸", weight: "item_2_weight" },
+        { id: 9, name: "item_9_name", category: "main", img: "images/steak.jpg", desc: "item_9_desc", ingredients: "item_9_ingredients", time: "item_9_time", price: "4500₸", weight: "item_9_weight" },
+        { id: 10, name: "item_10_name", category: "main", img: "images/carbonara.jpg", desc: "item_10_desc", ingredients: "item_10_ingredients", time: "item_10_time", price: "2800₸", weight: "item_10_weight" },
+        { id: 11, name: "item_11_name", category: "main", img: "images/plov.jpg", desc: "item_11_desc", ingredients: "item_11_ingredients", time: "item_11_time", price: "2600₸", weight: "item_11_weight" },
+        { id: 12, name: "item_12_name", category: "main", img: "images/salmon_steak.jpg", desc: "item_12_desc", ingredients: "item_12_ingredients", time: "item_12_time", price: "5500₸", weight: "item_12_weight" },
+        { id: 13, name: "item_13_name", category: "main", img: "images/lagman.jpg", desc: "item_13_desc", ingredients: "item_13_ingredients", time: "item_13_time", price: "2700₸", weight: "item_13_weight" },
+        { id: 14, name: "item_14_name", category: "main", img: "images/manty.jpg", desc: "item_14_desc", ingredients: "item_14_ingredients", time: "item_14_time", price: "2300₸", weight: "item_14_weight" },
+    
+        // Десерты (desserts)
+        { id: 3, name: "item_3_name", category: "desserts", img: "images/cake.jpg", desc: "item_3_desc", ingredients: "item_3_ingredients", time: "item_3_time", price: "3000₸", weight: "item_3_weight" }, // Предп. целый торт
+        { id: 15, name: "item_15_name", category: "desserts", img: "images/cheesecake.jpg", desc: "item_15_desc", ingredients: "item_15_ingredients", time: "item_15_time", price: "1600₸", weight: "item_15_weight" }, // Кусок
+        { id: 16, name: "item_16_name", category: "desserts", img: "images/tiramisu.jpg", desc: "item_16_desc", ingredients: "item_16_ingredients", time: "item_16_time", price: "1700₸", weight: "item_16_weight" },
+        { id: 17, name: "item_17_name", category: "desserts", img: "images/apple_strudel.jpg", desc: "item_17_desc", ingredients: "item_17_ingredients", time: "item_17_time", price: "1400₸", weight: "item_17_weight" },
+        { id: 18, name: "item_18_name", category: "desserts", img: "images/ice_cream.jpg", desc: "item_18_desc", ingredients: "item_18_ingredients", time: "item_18_time", price: "1100₸", weight: "item_18_weight" },
+        { id: 19, name: "item_19_name", category: "desserts", img: "images/chak_chak.jpg", desc: "item_19_desc", ingredients: "item_19_ingredients", time: "item_19_time", price: "1000₸", weight: "item_19_weight" },
+    
+        // Напитки (drinks)
+        { id: 4, name: "item_4_name", category: "drinks", img: "images/tea.jpg", desc: "item_4_desc", ingredients: "item_4_ingredients", time: "item_4_time", price: "500₸", weight: "item_4_weight" }, // Чайник?
+        { id: 20, name: "item_20_name", category: "drinks", img: "images/cappuccino.jpg", desc: "item_20_desc", ingredients: "item_20_ingredients", time: "item_20_time", price: "900₸", weight: "item_20_weight" },
+        { id: 21, name: "item_21_name", category: "drinks", img: "images/orange_juice.jpg", desc: "item_21_desc", ingredients: "item_21_ingredients", time: "item_21_time", price: "700₸", weight: "item_21_weight" },
+        { id: 22, name: "item_22_name", category: "drinks", img: "images/mineral_water.jpg", desc: "item_22_desc", ingredients: "item_22_ingredients", time: "item_22_time", price: "400₸", weight: "item_22_weight" },
+        { id: 23, name: "item_23_name", category: "drinks", img: "images/lemonade.jpg", desc: "item_23_desc", ingredients: "item_23_ingredients", time: "item_23_time", price: "800₸", weight: "item_23_weight" },
+        { id: 24, name: "item_24_name", category: "drinks", img: "images/coca_cola.jpg", desc: "item_24_desc", ingredients: "item_24_ingredients", time: "item_24_time", price: "500₸", weight: "item_24_weight" }
+    ];
 
         // Получение DOM-элементов
         const menuContainer = document.getElementById("menu");
